@@ -17,7 +17,7 @@ public class Aluno{
 
     private String nome,turno, turma,  consumo;
     private int matricula,idResponsavel,saldo,idUsuario;
-    private int situacao;
+    private String situacao;
     public Aluno(){
     };
     public Aluno(int matricula, String turma , String turno, int saldo, String consumo) {
@@ -60,11 +60,11 @@ public class Aluno{
         this.nome = nome;
     }
 
-    public int getSituacao() {
+    public String getSituacao() {
         return situacao;
     }
 
-    public void setSituacao(int situacao) {
+    public void setSituacao(String situacao) {
         this.situacao = situacao;
     }
 

@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <jsp:include page="../estrutura/header.jspf"/> 
+    <jsp:include page="../estrutura/header_info.jspf"/> 
     <body>
         <div class="container-fluid">  
             <jsp:include page="../estrutura/nav_responsavel.jsp"/> 
@@ -22,16 +22,23 @@
                     <div class="panel panel-success">
                         <div class="panel-heading">Inserir Valor</div>
                         <div class="panel-body">
-                            <form>
-                                <div class="form-group" id="editarAluno" action="ControlerAluno?opcao=inserirSaldo" method="post">
-                                    <label for="saldo">Saldo</label>
-                                    <input type="number" name="saldo" class="form-control"  required="true">
+                            <form class="form-horizontal" action="ControlerAluno?opcao=inserirSaldo" method="post">
+                                <div class="form-group " >
+                                    <label class="col-sm-2 control-label" for="saldo">Saldo</label>
+                                    <div class="col-sm-4">
+                                        <input type="number" name="saldo" class="form-control"  required="true">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="matricula" class="form-control" value="<%=aluno.getMatricula()%>">
                                 </div>
-                                 <button type="submit" class="btn btn-primary">Salvar</button>
-                                <a href="ControlerAluno?opcao=consultar" class="btn btn-success active" role="button">Voltar</a>
+                                <!-- Button -->
+                                 <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                        <a href="ControlerAluno?opcao=consultar" class="btn btn-success active" role="button">Voltar</a>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>   

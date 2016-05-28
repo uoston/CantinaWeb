@@ -47,27 +47,22 @@
                                 <th class="text-center">Saldo</th>
                                 <th class="text-center">Situação</th>
                                 <th class="text-center">Editar</th>
-                                <th class="text-center">Saldo</th>
+                                <th class="text-center">Creditar</th>
                                 <%
                                     ArrayList<Aluno> listaAluno = responsavel.getListaAluno();
                                     Iterator<Aluno> iterator = listaAluno.iterator();
-                                    String sitaucao;
+
                                     while (iterator.hasNext()) {
                                          Aluno AlunoComplento = (Aluno)iterator.next();
                                          
-                                         
+                                         System.out.print(AlunoComplento.getSituacao());
                                 %>
                                 <tr>
                                     <td><%=AlunoComplento.getNome() %></td>
                                     <td><%=AlunoComplento.getTurma() %></td>
                                     <td><%=AlunoComplento.getTurno()%></td>
                                     <td><%=AlunoComplento.getSaldo() %></td>
-                                    <% if (AlunoComplento.getSituacao() == 1){
-                                            sitaucao = "Desbloqueado";
-                                        }else{
-                                             sitaucao = "bloqueado";
-                                        }    %>
-                                    <td><%=AlunoComplento.getSituacao()%></td>
+                                    <td><%=AlunoComplento.getSituacao() %></td>
                                     <td class="text-center"><a class="btn btn-default" href="ControlerAluno?opcao=editar&mat=<%= AlunoComplento.getMatricula()%>"  role="button">
                                         <span class="glyphicon glyphicon-edit text-warning" aria-hidden="true"></span></a>
                                     </td>

@@ -41,12 +41,12 @@
                                 <div class="form-group">
                                     <label for="turno">Situação</label>
                                     <select class="form-control" name="situacao">
-                                         <% if (aluno.getSituacao() == 0) { %>
-                                            <option value="0" selected>Desbloqueado</option>
-                                            <option value="1" >Bloqueado</option>
+                                        <% if (aluno.getSituacao().equals("Desbloqueado")) { %>
+                                            <option value="Desbloqueado" selected>Desbloqueado</option>
+                                            <option value="Bloqueado" >Bloqueado</option>
                                           <% } else { %>
-                                            <option value="0" >Desbloqueado</option>
-                                            <option value="1" selected>Bloqueado</option>
+                                            <option value="Desbloqueado" >Desbloqueado</option>
+                                            <option value="Bloqueado" selected>Bloqueado</option>
                                           <% } %>
                                     </select>
                                 </div>

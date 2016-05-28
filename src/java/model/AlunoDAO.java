@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import controller.Aluno;
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 
 /**
@@ -59,7 +60,7 @@ public class AlunoDAO {
           aluno.setTurma( resposta.getString("turma"));
           aluno.setTurno(resposta.getString("turno"));
           aluno.setSaldo(resposta.getInt("saldo"));
-          aluno.setSituacao(resposta.getInt("situacao")); 
+          aluno.setSituacao(resposta.getString("situacao")); 
                     
           retorno = true;
       }
@@ -118,7 +119,7 @@ public class AlunoDAO {
                alunoResposta.setSaldo(resposta.getInt("saldo"));
                alunoResposta.setIdUsuario(resposta.getInt("idUsuario"));
                alunoResposta.setIdResponsavel(resposta.getInt("idResponsavel"));
-               aluno.setSituacao(resposta.getInt("situacao")); 
+               alunoResposta.setSituacao(resposta.getString("situacao")); 
                // adicionando o objeto à lista
                listaAluno.add(alunoResposta);
             }
@@ -153,23 +154,33 @@ public class AlunoDAO {
           return resposta;
       }
   }
-    public int inserirSaldo (Aluno aluno){
+    public boolean inserirSaldo (Aluno aluno){
       Connection conexao = ConnectionFactory.getConnection();
-      int resposta=0;
-      try{
-      Statement sentenca = conexao.createStatement();
-      String sql = "update lp3.aluno "+
-                   "set saldo='" + aluno.getSaldo()+ "' where matricula='"+aluno.getMatricula()+"'";
+     boolean retorno = false;
+//       String sql = "{call lp3.inserirSaldo("+
+//                   + aluno.getSaldo()+ ","+aluno.getMatricula()+");}";
+      //prepare para conexao e passa a query para executar logo depois
 
-      resposta = sentenca.executeUpdate(sql);
-      
+ 
+      try{
+      //query para executar procedure
+       String sql = "{call lp3.inserirSaldo(?,?);}";
+      CallableStatement sentenca = conexao.prepareCall(sql);
+      sentenca.setInt(1, aluno.getSaldo());
+      sentenca.setInt(2, aluno.getMatricula());
+      ResultSet resposta = sentenca.executeQuery();
+      while (resposta.next()) {
+          resposta.getInt("saldo");
+      }
+       //retorno = sentenca.execute();
+
        sentenca.close();
        conexao.close();
-      }catch(SQLException erro){
-           System.out.println("Erro no update do aluno");
+      }catch(SQLException e){
+            System.out.println("Erro ao executar a procedure inserirSaldo");
       }
       finally{
-          return resposta;
+          return retorno;
       }
   } 
   /*

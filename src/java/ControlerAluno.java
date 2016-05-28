@@ -98,7 +98,7 @@ public class ControlerAluno extends HttpServlet {
                 aluno.setTurma(request.getParameter("turma"));
                 aluno.setTurno(request.getParameter("turno"));
                 aluno.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
-                aluno.setSituacao(0);
+                aluno.setSituacao("Desbloqueado");
                 aluno.setIdResponsavel(responsavel.getIdResponsavel());
 
                 //se o cadastro for realizado seta o objeto alunoUsuario e retorna para o cadastro
@@ -157,13 +157,24 @@ public class ControlerAluno extends HttpServlet {
                 aluno.setNome(nomeEditar);
                 aluno.setTurma(turmaEditar);
                 aluno.setTurno(turnoEditar);
-                aluno.setSituacao(Integer.parseInt(situacao));
+                aluno.setSituacao(situacao);
                 aluno.editar();
                 aluno.consultar();
                 
                 //passa o objeto aluno
-                request.setAttribute("aluno", aluno);
-                String urlAluno = "/aluno/aluno_editar.jsp";
+               // request.setAttribute("aluno", aluno);
+                
+                                //recupera o usuario do responsavel
+                Usuario responsavelUsuario = (Usuario)session.getAttribute("usuario"); 
+                //cria o objeto do responsavel e preenche o objeto
+                Responsavel responsavel = new Responsavel(); 
+                responsavel.setIdUsuario(responsavelUsuario.getIdUsuario());
+                responsavel.consultar(); 
+                responsavel.ConsultarListaAluno();
+                //seta o parametro responsavel
+                request.setAttribute("responsavel", responsavel);
+                
+                String urlAluno = "/aluno/aluno_consultar.jsp";
                 RequestDispatcher rd = request.getRequestDispatcher(urlAluno);
                 rd.forward(request,response);                               
             }else if(opcao.equals("saldo")){
@@ -188,10 +199,12 @@ public class ControlerAluno extends HttpServlet {
                 String urlAluno = "/aluno/aluno_saldo.jsp";
                 RequestDispatcher rd = request.getRequestDispatcher(urlAluno);
                 rd.forward(request,response);                                  
-            }else if(opcao.equals("saldo")){
+            }else if(opcao.equals("inserirSaldo")){
+                
                 Aluno aluno = new Aluno();
-                aluno.setMatricula(Integer.parseInt(request.getParameter("mat")));
-                aluno.setSaldo(Integer.parseInt(request.getParameter("mat")));
+                
+                aluno.setMatricula(Integer.parseInt(request.getParameter("matricula")));
+                aluno.setSaldo(Integer.parseInt(request.getParameter("saldo")));
                 aluno.inserirSaldo();
                 
                 

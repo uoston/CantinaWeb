@@ -28,7 +28,7 @@
                                     <div class="form-group">
                                       <label class="col-md-4 control-label" for="login_aluno">Login</label>  
                                       <div class="col-md-4">
-                                      <input id="login_aluno" name="login_aluno" type="text" class="form-control input-md"  required="true">
+                                        <input id="login_aluno" name="login_aluno" type="text" class="form-control input-md"  required="true">
                                       </div>
                                     </div>
                                     <!-- Password input-->
