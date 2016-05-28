@@ -3,6 +3,8 @@
     Created on : 18/03/2016, 01:37:02
     Author     : Rafaela Batista
 --%>
+<%@page import="controller.Aluno"%>
+<%Aluno aluno = (Aluno) request.getAttribute("aluno");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,15 +20,18 @@
                     <!-- Conteudo -->
 
                     <div class="panel panel-success">
-                        <div class="panel-heading">Cadastrar Aluno</div>
+                        <div class="panel-heading">Inserir Valor</div>
                         <div class="panel-body">
                             <form>
-                                <div class="form-group">
+                                <div class="form-group" id="editarAluno" action="ControlerAluno?opcao=inserirSaldo" method="post">
                                     <label for="saldo">Saldo</label>
-                                    <input type="text" name="saldo" class="form-control" placeholder="00000" required>
+                                    <input type="number" name="saldo" class="form-control"  required="true">
                                 </div>
-
-                                <a href="../aluno/aluno_consultar.jsp" class="btn btn-success active" role="button">Voltar</a>
+                                <div class="form-group">
+                                    <input type="hidden" name="matricula" class="form-control" value="<%=aluno.getMatricula()%>">
+                                </div>
+                                 <button type="submit" class="btn btn-primary">Salvar</button>
+                                <a href="ControlerAluno?opcao=consultar" class="btn btn-success active" role="button">Voltar</a>
                             </form>
                         </div>
                     </div>   

@@ -28,7 +28,6 @@ public class AlunoDAO {
       Connection conexao = ConnectionFactory.getConnection();
 //      List<Aluno> listAluno = new ArrayList<Aluno>();
           boolean retorno = false;
-          
       try{
       String sql = "select matricula,nome,turno,turma,saldo,idUsuario,idResponsavel,situacao from lp3.aluno where 1=1";
 //      if(aluno.getIdUsuario() > 0){
@@ -60,7 +59,8 @@ public class AlunoDAO {
           aluno.setTurma( resposta.getString("turma"));
           aluno.setTurno(resposta.getString("turno"));
           aluno.setSaldo(resposta.getInt("saldo"));
-          aluno.setSituacao(resposta.getInt("sitaucao"));
+          aluno.setSituacao(resposta.getInt("situacao")); 
+                    
           retorno = true;
       }
       stmt.close();
@@ -119,7 +119,6 @@ public class AlunoDAO {
                alunoResposta.setIdUsuario(resposta.getInt("idUsuario"));
                alunoResposta.setIdResponsavel(resposta.getInt("idResponsavel"));
                aluno.setSituacao(resposta.getInt("situacao")); 
-               
                // adicionando o objeto à lista
                listaAluno.add(alunoResposta);
             }
@@ -140,9 +139,9 @@ public class AlunoDAO {
       try{
       Statement sentenca = conexao.createStatement();
       String sql = "update lp3.aluno "+
-                   "set nome='"+aluno.getNome()+"', turma='"+aluno.getTurma()+"',turno='"+aluno.getTurno()+"' "+
+                   "set nome='"+aluno.getNome()+"', turma='"+aluno.getTurma()+"',turno='"+aluno.getTurno()+
                    "',situacao='"+aluno.getSituacao()+"' "+"where matricula='"+aluno.getMatricula()+"'";
-  
+
       resposta = sentenca.executeUpdate(sql);
       
        sentenca.close();
@@ -153,7 +152,27 @@ public class AlunoDAO {
       finally{
           return resposta;
       }
-  }  /*
+  }
+    public int inserirSaldo (Aluno aluno){
+      Connection conexao = ConnectionFactory.getConnection();
+      int resposta=0;
+      try{
+      Statement sentenca = conexao.createStatement();
+      String sql = "update lp3.aluno "+
+                   "set saldo='" + aluno.getSaldo()+ "' where matricula='"+aluno.getMatricula()+"'";
+
+      resposta = sentenca.executeUpdate(sql);
+      
+       sentenca.close();
+       conexao.close();
+      }catch(SQLException erro){
+           System.out.println("Erro no update do aluno");
+      }
+      finally{
+          return resposta;
+      }
+  } 
+  /*
          String sql = "update contatos set matricula=?, turma=?, turno=?," +
              "turno=?, saldo=? where id=?";
      try {

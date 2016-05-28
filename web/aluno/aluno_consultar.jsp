@@ -45,23 +45,33 @@
                                 <th class="text-center">Turma</th>
                                 <th class="text-center">Turna</th>
                                 <th class="text-center">Saldo</th>
+                                <th class="text-center">Situação</th>
                                 <th class="text-center">Editar</th>
                                 <th class="text-center">Saldo</th>
                                 <%
                                     ArrayList<Aluno> listaAluno = responsavel.getListaAluno();
                                     Iterator<Aluno> iterator = listaAluno.iterator();
+                                    String sitaucao;
                                     while (iterator.hasNext()) {
-                                         Aluno AlunoComplento = iterator.next();
+                                         Aluno AlunoComplento = (Aluno)iterator.next();
+                                         
+                                         
                                 %>
                                 <tr>
                                     <td><%=AlunoComplento.getNome() %></td>
                                     <td><%=AlunoComplento.getTurma() %></td>
                                     <td><%=AlunoComplento.getTurno()%></td>
                                     <td><%=AlunoComplento.getSaldo() %></td>
+                                    <% if (AlunoComplento.getSituacao() == 1){
+                                            sitaucao = "Desbloqueado";
+                                        }else{
+                                             sitaucao = "bloqueado";
+                                        }    %>
+                                    <td><%=AlunoComplento.getSituacao()%></td>
                                     <td class="text-center"><a class="btn btn-default" href="ControlerAluno?opcao=editar&mat=<%= AlunoComplento.getMatricula()%>"  role="button">
                                         <span class="glyphicon glyphicon-edit text-warning" aria-hidden="true"></span></a>
                                     </td>
-                                    <td class="text-center"><a class="btn btn-default" href="ControlerAluno?opcao=excluir&mat=<%= AlunoComplento.getMatricula()%>" 
+                                    <td class="text-center"><a class="btn btn-default" href="ControlerAluno?opcao=saldo&mat=<%= AlunoComplento.getMatricula()%>" 
                                                                role="button" data-toggle="tooltip" data-placement="left" title="Adicionar Saldo">
                                         <span class="glyphicon glyphicon-plus-sign text-success" aria-hidden="true" ></span></a>
                                     </td>

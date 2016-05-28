@@ -117,7 +117,10 @@ public class Aluno{
         AlunoDAO aluno = new AlunoDAO();
         aluno.editar(this);  
     }
-
+    public void inserirSaldo() {
+        AlunoDAO aluno = new AlunoDAO();
+        aluno.inserirSaldo(this);  
+    }
     public void bloquear() {
 
     }

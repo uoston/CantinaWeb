@@ -158,7 +158,6 @@ public class ControlerAluno extends HttpServlet {
                 aluno.setTurma(turmaEditar);
                 aluno.setTurno(turnoEditar);
                 aluno.setSituacao(Integer.parseInt(situacao));
-                System.out.print(aluno.getSituacao());
                 aluno.editar();
                 aluno.consultar();
                 
@@ -167,30 +166,35 @@ public class ControlerAluno extends HttpServlet {
                 String urlAluno = "/aluno/aluno_editar.jsp";
                 RequestDispatcher rd = request.getRequestDispatcher(urlAluno);
                 rd.forward(request,response);                               
-            }else if(opcao.equals("excluir")){
+            }else if(opcao.equals("saldo")){
                 //pega a matricula cria o objeto aluno com a matricula e consulta o aluno
                 String mat = request.getParameter("mat");
                 Aluno aluno = new Aluno();
                 aluno.setMatricula(Integer.parseInt(mat));
                 aluno.consultar();
                 
-                Usuario usuarioAluno = new Usuario();
-                usuarioAluno.setIdUsuario(aluno.getIdUsuario());
-                usuarioAluno.excluir();
-                
-                //recupera o usuario do responsavel
-                Usuario responsavelUsuario = (Usuario)session.getAttribute("usuario"); 
-                //cria o objeto do responsavel e preenche o objeto
-                Responsavel responsavel = new Responsavel(); 
-                responsavel.setIdUsuario(responsavelUsuario.getIdUsuario());
-                responsavel.consultar(); 
-                responsavel.ConsultarListaAluno();
-                
-                //seta o parametro responsavel
-                request.setAttribute("responsavel", responsavel);                  
-                String urlAluno = "/aluno/aluno_consultar.jsp";
+//                
+//                //recupera o usuario do responsavel
+//                Usuario responsavelUsuario = (Usuario)session.getAttribute("usuario"); 
+//                //cria o objeto do responsavel e preenche o objeto
+//                Responsavel responsavel = new Responsavel(); 
+//                responsavel.setIdUsuario(responsavelUsuario.getIdUsuario());
+//                responsavel.consultar(); 
+//                responsavel.ConsultarListaAluno();
+//                
+//                //seta o parametro responsavel
+//                request.setAttribute("responsavel", responsavel); 
+                request.setAttribute("aluno", aluno); 
+                String urlAluno = "/aluno/aluno_saldo.jsp";
                 RequestDispatcher rd = request.getRequestDispatcher(urlAluno);
                 rd.forward(request,response);                                  
+            }else if(opcao.equals("saldo")){
+                Aluno aluno = new Aluno();
+                aluno.setMatricula(Integer.parseInt(request.getParameter("mat")));
+                aluno.setSaldo(Integer.parseInt(request.getParameter("mat")));
+                aluno.inserirSaldo();
+                
+                
             }
                     
 
