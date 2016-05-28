@@ -77,8 +77,9 @@ public class ControlerUsuario extends HttpServlet {
                     }else if(usuario.getTipo() == 2 ){ 
                         //cria o objeto responsavel e consulta no banco com o idUsuario preenche os dados do objeto
                         Responsavel responsavel = new Responsavel();
-                        responsavel.consultar(usuario);
-                        
+                        responsavel.setIdUsuario(usuario.getIdUsuario());
+                        responsavel.consultar();
+                        System.out.print(responsavel.getNome());
                         if(responsavel != null)
                         request.setAttribute("responsavel", responsavel);
                         
@@ -88,7 +89,8 @@ public class ControlerUsuario extends HttpServlet {
                     //aluno
                     }else if(usuario.getTipo() == 3 ){
                         Aluno AlunoConsulta = new Aluno();
-                        AlunoConsulta.consultar(usuario);
+                        AlunoConsulta.setIdUsuario(usuario.getIdUsuario());
+                        AlunoConsulta.consultar();
                         if(AlunoConsulta != null)
                         request.setAttribute("aluno", AlunoConsulta);
 
